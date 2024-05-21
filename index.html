@@ -18,17 +18,54 @@
 
 <!-- popunder -->
 <script>
-function redirect() {
-let a = document.createElement('a');
-a.target = '_blank';
-a.href = 'https://main_url.com/click';
-a.click();
+  (function() {
+    var popunderUrl = 'https://example.com'; // URL to open in popunder
 
-setTimeout(
-window.location.href = "https://ngsub.surpriseanddelightgifts.com/"
-, 1000);
-}
-</script>  
+    function openPopunder(url) {
+        var a = document.createElement('a');
+        a.href = url;
+        a.target = '_blank';
+
+        var evt = new MouseEvent('click', {
+            view: window,
+            bubbles: true,
+            cancelable: true,
+            screenX: 0,
+            screenY: 0,
+            clientX: 0,
+            clientY: 0,
+            ctrlKey: false,
+            altKey: false,
+            shiftKey: false,
+            metaKey: false,
+            button: 0,
+            buttons: 0,
+            relatedTarget: null
+        });
+
+        a.dispatchEvent(evt);
+
+        // Set focus back to the current window
+        window.focus();
+    }
+
+    document.addEventListener('click', function(event) {
+        var target = event.target;
+        while (target) {
+            if (target.tagName === 'A') {
+                const linkHref = target.href;
+                event.preventDefault();
+                window.open(linkHref, '_blank');
+                setTimeout(function() {
+                    openPopunder(popunderUrl);
+                }, 500); // Delay to avoid popup blockers
+                break;
+            }
+            target = target.parentNode;
+        }
+    });
+})();
+</script>
 
 <!-- bbr popunder -->
   
