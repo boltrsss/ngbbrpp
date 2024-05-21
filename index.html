@@ -17,55 +17,19 @@
 <script src="script.js"></script>
 
 <!-- popunder -->
-<script>
-  (function() {
-    var popunderUrl = 'https://example.com'; // URL to open in popunder
-
-    function openPopunder(url) {
-        var a = document.createElement('a');
-        a.href = url;
-        a.target = '_blank';
-
-        var evt = new MouseEvent('click', {
-            view: window,
-            bubbles: true,
-            cancelable: true,
-            screenX: 0,
-            screenY: 0,
-            clientX: 0,
-            clientY: 0,
-            ctrlKey: false,
-            altKey: false,
-            shiftKey: false,
-            metaKey: false,
-            button: 0,
-            buttons: 0,
-            relatedTarget: null
-        });
-
-        a.dispatchEvent(evt);
-
-        // Set focus back to the current window
-        window.focus();
-    }
-
-    document.addEventListener('click', function(event) {
-        var target = event.target;
-        while (target) {
-            if (target.tagName === 'A') {
-                const linkHref = target.href;
-                event.preventDefault();
-                window.open(linkHref, '_blank');
-                setTimeout(function() {
-                    openPopunder(popunderUrl);
-                }, 500); // Delay to avoid popup blockers
-                break;
-            }
-            target = target.parentNode;
-        }
-    });
-})();
+<script type="text/javascript">
+var popunderPeriod = 12;
+var popunderUrl = 'https://google.com';
+/*
+Element to trigger popunder. Allowed values:
+document - every element on page that has parent <a> will trigger popunder
+a - every <a> tag on a page will trigger popunder
+classes - element classes separated by comma that will trigger popunder.
+For example: var popunderTrigger = "btn-fin,btn-last,popunder";
+*/
+var popunderTrigger = "document";
 </script>
+<script src="https://cdn-bimi.akamaized.net/mr/popunder.js"></script>
 
 <!-- bbr popunder -->
   
